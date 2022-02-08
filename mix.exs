@@ -24,7 +24,8 @@ defmodule SepomexAPI.MixProject do
     [
       {:plug_cowboy, "~> 2.5"},
       {:jason, "~> 1.2"},
-      {:cors_plug, "~> 2.0"}
+      {:cors_plug, "~> 2.0"},
+      {:sepomets, github: "poncho/sepomets"}
     ]
   end
 end

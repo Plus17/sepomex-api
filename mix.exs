@@ -15,7 +15,7 @@ defmodule SepomexAPI.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {SepomexAPI.Application, []}
+      mod: {SepomexAPI.Application, [:plug_cowboy]}
     ]
   end
 

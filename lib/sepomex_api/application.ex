@@ -10,6 +10,11 @@ defmodule SepomexAPI.Application do
     children = [
       # Starts a worker by calling: SepomexAPI.Worker.start_link(arg)
       # {SepomexAPI.Worker, arg}
+      Plug.Cowboy.child_spec(
+        scheme: :http,
+        plug: SepomexAPI.Endpoint,
+        options: [port: Application.fetch_env!(:sepomex_api, :http_port)]
+      )
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

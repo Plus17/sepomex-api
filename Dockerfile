@@ -1,4 +1,5 @@
 ARG MIX_ENV="prod"
+ARG SEPOMEX_FILE_PATH="lib/sepomex_api-0.1.0/priv/sepomex.zip"
 
 # build stage
 FROM elixir:1.13-alpine AS build
@@ -14,7 +15,9 @@ RUN mix local.hex --force && \
   mix local.rebar --force
 
 ARG MIX_ENV
+ARG SEPOMEX_FILE_PATH
 ENV MIX_ENV="${MIX_ENV}"
+ENV SEPOMEX_FILE_PATH="${SEPOMEX_FILE_PATH}"
 
 # install mix dependencies
 COPY mix.exs mix.lock ./
@@ -34,6 +37,9 @@ COPY priv priv
 COPY lib lib
 RUN mix compile
 
+# copy runtime configuration file
+COPY config/runtime.exs config/
+
 # assemble release
 RUN mix release
 
@@ -41,6 +47,8 @@ RUN mix release
 FROM alpine:3.15 AS app
 
 ARG MIX_ENV
+ARG SEPOMEX_FILE_PATH
+ENV SEPOMEX_FILE_PATH="${SEPOMEX_FILE_PATH}"
 
 # install runtime dependencies
 RUN apk add --no-cache libstdc++ openssl ncurses-libs

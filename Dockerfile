@@ -1,17 +1,17 @@
 ARG MIX_ENV="prod"
 
 # build stage
-FROM elixir:1.13-slim AS build
+FROM elixir:1.13-alpine AS build
 
 # install build dependencies
-RUN apt update && apt upgrade -y && apt install -y build-essential curl python3 git
+RUN apk add curl python3 git
 
 # sets work dir
 WORKDIR /app
 
 # install hex + rebar
 RUN mix local.hex --force && \
-    mix local.rebar --force
+  mix local.rebar --force
 
 ARG MIX_ENV
 ENV MIX_ENV="${MIX_ENV}"
@@ -52,15 +52,17 @@ WORKDIR "/home/${USER}/app"
 # Create  unprivileged user to run the release
 RUN \
   addgroup \
-   -g 1000 \
-   -S "${USER}" \
+  -g 1000 \
+  -S "${USER}" \
   && adduser \
-   -s /bin/sh \
-   -u 1000 \
-   -G "${USER}" \
-   -h "/home/${USER}" \
-   -D "${USER}" \
+  -s /bin/sh \
+  -u 1000 \
+  -G "${USER}" \
+  -h "/home/${USER}" \
+  -D "${USER}" \
   && su "${USER}"
+
+RUN chown -R "${USER}:${USER}" "/home/${USER}"
 
 # run as user
 USER "${USER}"
@@ -68,6 +70,4 @@ USER "${USER}"
 # copy release executables
 COPY --from=build --chown="${USER}":"${USER}" /app/_build/"${MIX_ENV}"/rel/sepomex_api ./
 
-ENTRYPOINT ["bin/sepomex_api"]
-
-CMD ["start"]
+CMD ["bin/sepomex_api", "start"]

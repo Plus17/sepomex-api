@@ -46,6 +46,11 @@ RUN mix release
 # app stage
 FROM alpine:3.15 AS app
 
+ENV REPLACE_OS_VARS=true
+
+# For local dev, heroku will ignore this
+EXPOSE $PORT
+
 ARG MIX_ENV
 ARG SEPOMEX_FILE_PATH
 ENV SEPOMEX_FILE_PATH="${SEPOMEX_FILE_PATH}"
@@ -53,29 +58,9 @@ ENV SEPOMEX_FILE_PATH="${SEPOMEX_FILE_PATH}"
 # install runtime dependencies
 RUN apk add --no-cache libstdc++ openssl ncurses-libs
 
-ENV USER="elixir"
-
-WORKDIR "/home/${USER}/app"
-
-# Create  unprivileged user to run the release
-RUN \
-  addgroup \
-  -g 1000 \
-  -S "${USER}" \
-  && adduser \
-  -s /bin/sh \
-  -u 1000 \
-  -G "${USER}" \
-  -h "/home/${USER}" \
-  -D "${USER}" \
-  && su "${USER}"
-
-RUN chown -R "${USER}:${USER}" "/home/${USER}"
-
-# run as user
-USER "${USER}"
+WORKDIR "/home/app"
 
 # copy release executables
-COPY --from=build --chown="${USER}":"${USER}" /app/_build/"${MIX_ENV}"/rel/sepomex_api ./
+COPY --from=0 /app/_build/"${MIX_ENV}"/rel/sepomex_api ./
 
-CMD ["bin/sepomex_api", "start"]
+CMD PORT=$PORT exec bin/sepomex_api start

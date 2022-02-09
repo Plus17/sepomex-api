@@ -24,6 +24,6 @@ defmodule SepomexAPI.Application do
   end
 
   def port() do
-    Application.get_env(:sepomex_api, :http_port, 80)
+    Application.fetch_env!(:sepomex_api, :http_port)
   end
 end

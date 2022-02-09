@@ -8,4 +8,6 @@ import Config
 # The block below contains prod specific runtime configuration.
 if config_env() == :prod do
   config :sepomets, file: System.fetch_env!("SEPOMEX_FILE_PATH")
+
+  config :sepomex_api, http_port: String.to_integer(System.fetch_env!("PORT"))
 end

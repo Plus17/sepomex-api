@@ -9,6 +9,12 @@ defmodule SepomexAPI.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       elixirc_options: [warnings_as_errors: true],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.html": :test,
+        "coveralls.xml": :test
+      ],
       releases: [
         sepomex_api: [
           include_executables_for: [:unix],
@@ -32,7 +38,9 @@ defmodule SepomexAPI.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:jason, "~> 1.2"},
       {:cors_plug, "~> 2.0"},
-      {:sepomets, github: "poncho/sepomets"}
+      {:sepomets, github: "poncho/sepomets"},
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.10", only: :test}
     ]
   end
 end

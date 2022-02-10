@@ -45,6 +45,5 @@ defmodule SepomexAPI.Endpoint do
   end
 end
 
-
 require Protocol
 Protocol.derive(Jason.Encoder, Sepomets.PostalCodeData)

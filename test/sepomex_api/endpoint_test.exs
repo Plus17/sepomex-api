@@ -1,9 +1,8 @@
 defmodule SepomexAPI.EndpointTest do
-	use ExUnit.Case, async: true
-	use Plug.Test
+  use ExUnit.Case, async: true
+  use Plug.Test
 
-
-	alias SepomexAPI.Endpoint
+  alias SepomexAPI.Endpoint
 
   @opts SepomexAPI.Endpoint.init([])
 
@@ -20,7 +19,6 @@ defmodule SepomexAPI.EndpointTest do
 
   describe "zip_code" do
     test "when zip code is valid" do
-
       conn = conn(:get, "/zip_code?zip_code=03100")
       conn = Endpoint.call(conn, @opts)
 
@@ -30,7 +28,6 @@ defmodule SepomexAPI.EndpointTest do
     end
 
     test "when zip code does not exists" do
-
       conn = conn(:get, "/zip_code?zip_code=00000")
       conn = Endpoint.call(conn, @opts)
 

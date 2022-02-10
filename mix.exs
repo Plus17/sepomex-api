@@ -8,6 +8,7 @@ defmodule SepomexAPI.MixProject do
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      elixirc_options: [warnings_as_errors: true],
       releases: [
         sepomex_api: [
           include_executables_for: [:unix],

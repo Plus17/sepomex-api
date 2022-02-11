@@ -6,10 +6,16 @@ You can see this at: https://elixir-sepomex-api.herokuapp.com/
 
 Only for reference.
 
-## Try in local
+## Requirements
 
-1. Clone this repository
-2. Go to the new dir `cd sepomex-api`
+1. [asdf](https://asdf-vm.com/guide/getting-started.html#_1-install-dependencies)
+2. [Docker](https://www.docker.com/products/docker-desktop) (optional)
+
+You can run `asdf install` in the root folder of the project to install the required versions of Erlang and Elixir defined in the `.tool-versions` file.
+## Run in local
+
+1. Clone this repository `git clone git@github.com:Plus17/sepomex-api.git`
+2. Go to the project dir `cd sepomex-api`
 3. Install dependencies: `mix deps.get && mix deps.compile`
 4. Run: `mix run --no-halt`
 

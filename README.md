@@ -19,7 +19,7 @@ Now server is running at: `http://localhost:4001/`
 
 1. Build image: `docker build . --tag sepomex_api`
 2. Run `docker images` to get the id of the new image.
-3. Run: `docker run -p 8081:80 <image-id>`
+3. Run: `docker run --env PORT=80 -p 8081:80 <image-id>`
 
 Now docker image is running at: `http://localhost:8081/`
 

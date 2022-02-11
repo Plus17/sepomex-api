@@ -26,10 +26,10 @@ Now docker image is running at: `http://localhost:8081/`
 ## Usage
 
 Make a get request to service with the zip code:
-`GET: http://localhost:8081/zip_code?zip_code=03100`
+`GET: http://localhost:8081/zip_codes?zip_code=03100`
 
 ```shell
-❯ curl "http://localhost:8081/zip_code?zip_code=03100" | jq --indent 2
+❯ curl "http://localhost:8081/zip_codes?zip_code=03100" | jq --indent 2
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   630  100   630    0     0   205k      0 --:--:-- --:--:-- --:--:--  205k

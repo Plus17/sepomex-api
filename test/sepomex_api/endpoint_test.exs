@@ -19,7 +19,7 @@ defmodule SepomexAPI.EndpointTest do
 
   describe "zip_code" do
     test "when zip code is valid" do
-      conn = conn(:get, "/zip_code?zip_code=03100")
+      conn = conn(:get, "/zip_codes?zip_code=03100")
       conn = Endpoint.call(conn, @opts)
 
       assert conn.state == :sent
@@ -28,7 +28,7 @@ defmodule SepomexAPI.EndpointTest do
     end
 
     test "when zip code does not exists" do
-      conn = conn(:get, "/zip_code?zip_code=00000")
+      conn = conn(:get, "/zip_codes?zip_code=00000")
       conn = Endpoint.call(conn, @opts)
 
       assert conn.state == :sent

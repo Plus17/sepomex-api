@@ -21,7 +21,7 @@ defmodule SepomexAPI.Endpoint do
     |> send_resp(200, json_body)
   end
 
-  get "/zip_code" do
+  get "/zip_codes" do
     zip_code = _get_zip_code(conn)
 
     results = Sepomets.get(zip_code)

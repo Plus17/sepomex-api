@@ -33,6 +33,16 @@ defmodule SepomexAPI.Endpoint do
     |> send_resp(200, json_body)
   end
 
+  get "/:zip_code" do
+    results = Sepomets.get(zip_code)
+
+    json_body = Jason.encode!(results)
+
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(200, json_body)
+  end
+
   match _ do
     send_resp(conn, 404, "Nothing here!")
   end

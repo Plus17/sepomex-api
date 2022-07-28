@@ -2,10 +2,10 @@ ARG MIX_ENV="prod"
 ARG SEPOMEX_FILE_PATH="lib/sepomex_api-0.1.0/priv/sepomex.zip"
 
 # build stage
-FROM elixir:1.13-alpine AS build
+FROM elixir:1.13-slim AS build
 
-# install build dependencies
-RUN apk add curl python3 git
+RUN apt update && apt upgrade -y && apt install -y build-essential curl python3 git
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
 
 # sets work dir
 WORKDIR /app
@@ -44,7 +44,7 @@ COPY config/runtime.exs config/
 RUN mix release
 
 # app stage
-FROM alpine:3.15 AS app
+FROM debian:bullseye AS app
 
 ENV REPLACE_OS_VARS=true
 
@@ -56,7 +56,10 @@ ARG SEPOMEX_FILE_PATH
 ENV SEPOMEX_FILE_PATH="${SEPOMEX_FILE_PATH}"
 
 # install runtime dependencies
-RUN apk add --no-cache libstdc++ openssl ncurses-libs
+RUN apt update && apt upgrade -y && apt install -y libncurses-dev locales && locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 
 WORKDIR "/home/app"
 

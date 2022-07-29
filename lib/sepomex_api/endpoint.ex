@@ -7,6 +7,8 @@ defmodule SepomexAPI.Endpoint do
 
   plug(Plug.Logger)
 
+  plug CORSPlug, origin: ["*"]
+
   plug(:match)
 
   plug(Plug.Parsers, parsers: [:json], json_decoder: Jason)

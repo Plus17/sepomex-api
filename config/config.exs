@@ -19,11 +19,6 @@ import Config
 # You can also configure a third-party app:
 #
 #     config :logger, level: :info
-#
-
-config :cors_plug,
-  origin: "*",
-  methods: ["GET"]
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment

@@ -2,7 +2,7 @@
 
 Simple API for Sepomex zip codes using [Sepomets](https://github.com/poncho/sepomets) under the hood.
 
-You can see this at: https://elixir-sepomex-api.herokuapp.com/
+You can see this at: https://sepomex-api.gigalixirapp.com/
 
 Only for reference.
 
